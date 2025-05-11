@@ -97,6 +97,8 @@ main {
 .hero h2 {
     font-size: 2.5em;
     margin-bottom: 20px;
+    white-space: normal;
+    overflow-wrap: break-word;
 }
 
 .projects {
@@ -229,6 +231,15 @@ img {
     
     .hero h2 {
         font-size: 2em;
+    }
+}
+
+@media (max-width: 600px) {
+    .hero h2 {
+        font-size: 1.8em;
+        line-height: 1.2;
+        margin: 0 1rem;
+        text-align: center;
     }
 }
 
