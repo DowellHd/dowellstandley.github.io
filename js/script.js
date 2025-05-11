@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             description: 'An AI-driven application that analyzes market data and suggests stock moves using reinforcement learning.',
             technologies: ['Python', 'TensorFlow', 'Flask'],
             image: 'ai-investment-bot-thumbnail.jpg',
-            link: 'https://github.com/yourusername/ai-investment-bot'
+            link: 'https://github.com/DowellHd/smart-stock-bot'
         }
     ];
 
