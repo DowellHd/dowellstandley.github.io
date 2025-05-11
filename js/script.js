@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'AI Investment Bot',
             description: 'An AI-driven application that analyzes market data and suggests stock moves using reinforcement learning.',
             technologies: ['Python', 'TensorFlow', 'Flask'],
-            image: 'ai-investment-bot-thumbnail.jpg',
+            image: 'images/ai-investment-bot-thumbnail.jpg',
             link: 'https://github.com/DowellHd/smart-stock-bot'
         }
     ];
@@ -64,7 +64,23 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const formData = new FormData(contactForm);
         // Here you would typically send this data to a server
-        alert('Thank you for your message! This is a demo - in a real portfolio, this would send an email.');
+        fetch('https://formspree.io/standleydowell@gmail.com', {
+            method: 'POST',
+            body: formData,
+            headers: {
+                'Accept': 'application/json'
+            }
+        })
+        .then(response => {
+            if (response.ok) {
+                alert('Thank you for your message! You will hear back from me soon.');
+            } else {
+                alert('Oops! There was a problem sending your message.');
+            }
+        })
+        .catch(error => {
+            alert('Oops! There was a problem sending your message.');
+        });
         contactForm.reset();
     });
 
