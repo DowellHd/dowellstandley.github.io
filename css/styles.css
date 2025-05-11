@@ -236,10 +236,16 @@ img {
 
 @media (max-width: 600px) {
     .hero h2 {
-        font-size: 1.8em;
+        font-size: 1.5em;
         line-height: 1.2;
-        margin: 0 1rem;
+        margin: 0 auto;
+        max-width: 90vw;
         text-align: center;
+    }
+    .container {
+        width: 90%;
+        padding: 0 1rem;
+        margin: 0 auto;
     }
 }
 
