@@ -275,6 +275,9 @@ img {
 }
 
 @media (max-width: 600px) {
+    .hero {
+        padding-top: 80px;
+    }
     .hero h2 {
         font-size: 1.5em;
         line-height: 1.2;
