@@ -212,6 +212,46 @@ footer {
     color: var(--accent-color);
 }
 
+.contact-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(10, 25, 47, 0.1);
+    border-radius: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-info p {
+    margin: 8px 0;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+}
+
+.contact-info strong {
+    color: var(--secondary-color);
+    min-width: 70px;
+    text-align: right;
+}
+
+.contact-info a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--accent-color);
+}
+
+.contact-info i {
+    color: var(--secondary-color);
+}
+
 img {
     max-width: 100%;
     height: auto;
