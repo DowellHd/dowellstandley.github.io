@@ -64,7 +64,7 @@ document.addEventListener('DOMContentLoaded', () => {
         e.preventDefault();
         const formData = new FormData(contactForm);
         // Here you would typically send this data to a server
-        fetch('https://formspree.io/standleydowell@gmail.com', {
+        fetch('https://formspree.io/f/myzjydyv', {
             method: 'POST',
             body: formData,
             headers: {
