@@ -1,6 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
     const projectGrid = document.getElementById('projectGrid');
-    const addProjectBtn = document.getElementById('addProjectBtn');
     const contactForm = document.getElementById('contactForm');
 
     // Sample projects data
@@ -40,24 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
             projectGrid.appendChild(createProjectCard(project));
         });
     }
-
-    // Add new project functionality
-    addProjectBtn.addEventListener('click', () => {
-        const newProject = {
-            title: prompt('Enter project title:'),
-            description: prompt('Enter project description:'),
-            technologies: prompt('Enter technologies used (comma-separated):').split(',').map(tech => tech.trim()),
-            image: prompt('Enter image URL (or leave blank for default):') || 'https://via.placeholder.com/300x200',
-            link: prompt('Enter project link:')
-        };
-
-        if (newProject.title && newProject.description) {
-            projects.push(newProject);
-            renderProjects();
-            // Save to localStorage
-            localStorage.setItem('portfolioProjects', JSON.stringify(projects));
-        }
-    });
 
     // Contact form handling
     contactForm.addEventListener('submit', (e) => {
