@@ -295,3 +295,29 @@ img {
 section {
     scroll-margin-top: 120px;
 }
+
+.project-card p {
+    font-size: 1rem;
+    color: #ccc;
+    flex-grow: 1;
+}
+
+.technologies {
+    margin: 10px 0;
+    flex-wrap: wrap;
+}
+
+.tech-tag {
+    display: inline-block;
+    background-color: #007bff; /* A nice blue background */
+    color: white;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 0.8rem;
+    margin: 2px;
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 15px;
+}
