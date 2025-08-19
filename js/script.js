@@ -2,7 +2,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectGrid = document.getElementById('projectGrid');
     const contactForm = document.getElementById('contactForm');
     const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.getElementById('nav-menu');
+    const navMenu = document.querySelector('nav');
 
     // Sample projects data
     let projects = [
@@ -76,8 +76,28 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Smooth scrolling for navigation links with offset for fixed header
-    document.querySelectorAll('nav a').forEach(anchor => {
+    // Mobile menu toggle
+    if (menuToggle && navMenu) {
+        menuToggle.addEventListener('click', function() {
+            const isExpanded = this.getAttribute('aria-expanded') === 'true';
+            this.setAttribute('aria-expanded', !isExpanded);
+            navMenu.classList.toggle('show');
+        });
+        
+        // Close menu when clicking on a nav link
+        const navLinks = document.querySelectorAll('nav a');
+        navLinks.forEach(link => {
+            link.addEventListener('click', () => {
+                if (window.innerWidth <= 768) {
+                    navMenu.classList.remove('show');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+            });
+        });
+    }
+
+    // Smooth scrolling for anchor links
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
             const targetId = this.getAttribute('href');
@@ -85,25 +105,14 @@ document.addEventListener('DOMContentLoaded', () => {
             
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
-                // Close mobile menu if open
-                if (navMenu && navMenu.classList.contains('show')) {
-                    navMenu.classList.remove('show');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-                
-                // Calculate header height
-                const headerHeight = document.querySelector('header').offsetHeight;
+                const headerOffset = 80;
                 const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                 
-                // Smooth scroll to target
                 window.scrollTo({
                     top: offsetPosition,
                     behavior: 'smooth'
                 });
-                
-                // Update URL without page reload
-                history.pushState(null, '', targetId);
             }
         });
     });
