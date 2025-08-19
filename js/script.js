@@ -76,7 +76,7 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
-    // Smooth scrolling for navigation links
+    // Smooth scrolling for navigation links with offset for fixed header
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
@@ -86,14 +86,19 @@ document.addEventListener('DOMContentLoaded', () => {
             const targetElement = document.querySelector(targetId);
             if (targetElement) {
                 // Close mobile menu if open
-                if (navMenu.classList.contains('show')) {
+                if (navMenu && navMenu.classList.contains('show')) {
                     navMenu.classList.remove('show');
                     menuToggle.setAttribute('aria-expanded', 'false');
                 }
                 
-                // Scroll to target
+                // Calculate header height
+                const headerHeight = document.querySelector('header').offsetHeight;
+                const elementPosition = targetElement.getBoundingClientRect().top;
+                const offsetPosition = elementPosition + window.pageYOffset - headerHeight;
+                
+                // Smooth scroll to target
                 window.scrollTo({
-                    top: targetElement.offsetTop - 100,
+                    top: offsetPosition,
                     behavior: 'smooth'
                 });
                 

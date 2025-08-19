@@ -27,100 +27,140 @@ body {
     padding: 20px;
 }
 
+/* Header */
 header {
     background-color: var(--primary-color);
     color: white;
-    padding: 1rem 0;
+    padding: 20px 0;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
 }
 
 header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    flex-wrap: wrap;
     padding: 10px 0;
-}
-
-.header-left, .header-center, .header-right {
-    flex: 1 1 100%;
-    text-align: center;
-    margin: 5px 0;
 }
 
 nav ul {
     display: flex;
     list-style: none;
-    flex-direction: column;
-    display: none;
-    width: 100%;
+    margin: 0;
     padding: 0;
 }
 
-nav ul.show {
-    display: flex;
-}
-
 nav ul li {
-    margin: 10px 0;
     margin-left: 20px;
 }
 
-nav ul li a {
+nav a {
     color: white;
     text-decoration: none;
-    display: inline-block;
-    transition: color 0.2s ease, text-shadow 0.2s ease;
+    font-weight: 500;
+    transition: color 0.3s ease;
+    padding: 5px 10px;
+    border-radius: 4px;
 }
 
-nav ul li a:hover {
-    transform-origin: center;
-    transform: scale(1.3);
+nav a:hover {
     color: var(--accent-color);
-    text-shadow:
-      0 0 4px var(--accent-color),
-      0 0 8px var(--accent-color),
-      0 0 12px var(--accent-color);
+    background: rgba(255, 255, 255, 0.1);
 }
 
-main {
-    margin-top: 80px;
+/* Mobile menu toggle */
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+    position: absolute;
+    right: 20px;
+    top: 10px;
 }
 
+/* Mobile styles */
+@media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+    }
+    
+    nav {
+        width: 100%;
+        order: 3;
+        margin-top: 15px;
+    }
+    
+    nav ul {
+        display: none;
+        flex-direction: column;
+        background: var(--primary-color);
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 70px;
+        padding: 15px 0;
+        z-index: 1000;
+        box-shadow: 0 5px 10px rgba(0,0,0,0.1);
+    }
+    
+    nav ul.show {
+        display: flex;
+    }
+    
+    nav ul li {
+        margin: 0;
+        text-align: center;
+    }
+    
+    nav a {
+        display: block;
+        padding: 12px 20px;
+    }
+}
+
+/* Hero section */
 .hero {
     background-color: var(--secondary-color);
     color: white;
     text-align: center;
-    padding: 100px 0;
+    padding: 120px 0;
     background-image: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
 }
 
-.hero code {
-    display: block;
-    background-color: var(--code-bg);
-    color: var(--secondary-color);
-    padding: 1em;
-    border-radius: 5px;
-    font-family: 'Roboto Mono', monospace;
-    margin-top: 20px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
 .hero h2 {
-    font-size: 1.8em;
+    font-size: 2.5em;
     margin-bottom: 20px;
     white-space: normal;
     overflow-wrap: break-word;
-    padding: 0 10px;
 }
 
 .hero p {
-    padding: 0 15px;
+    font-size: 1.2em;
+    max-width: 800px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+}
+
+/* Responsive styles */
+@media (max-width: 768px) {
+    .hero {
+        padding: 100px 20px;
+    }
+    
+    .hero h2 {
+        font-size: 1.8em;
+    }
+    
+    .hero p {
+        font-size: 1em;
+    }
 }
 
 .projects {
@@ -288,55 +328,225 @@ img {
     margin: 0 auto;
 }
 
-.menu-toggle {
-    display: none;
-    background: none;
-    border: none;
-    color: white;
-    font-size: 1.5rem;
-    cursor: pointer;
-    padding: 10px;
+main {
+    margin-top: 80px;
 }
 
+/* Ensure hero content is properly spaced and sized */
+.hero .container {
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Adjust hero content for different orientations */
 @media (max-width: 768px) {
-    .menu-toggle {
-        display: block;
-        position: absolute;
-        right: 20px;
-        top: 15px;
-    }
-    
-    .header-left h1 {
-        font-size: 1.5em;
-        margin-top: 10px;
-    }
-    
-    .tagline p {
-        font-size: 0.9em;
-    }
-    
-    .project-card {
-        margin: 0 10px;
-    }
-    
-    .about img {
-        max-width: 200px;
-    }
-    
-    header .container {
-        flex-direction: column;
-        text-align: center;
-    }
-    
-    nav ul {
-        margin-top: 15px;
+    .hero {
+        padding: 100px 15px;
+        min-height: calc(100vh - 60px); /* Account for header */
     }
     
     .hero h2 {
-        font-size: 2em;
+        font-size: 1.8em;
+        margin-bottom: 20px;
+        line-height: 1.3;
+    }
+    
+    .hero p {
+        font-size: 1.1em;
+        margin: 0 auto 20px;
+        max-width: 90%;
     }
 }
 
+/* Specific adjustments for portrait mode */
+@media (max-width: 768px) and (orientation: portrait) {
+    .hero {
+        padding: 80px 15px;
+    }
+    
+    .hero h2 {
+        font-size: 1.6em;
+    }
+    
+    .hero p {
+        font-size: 1em;
+    }
+}
+
+.project-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+    margin-top: 30px;
+    padding: 0 10px;
+}
+
+.project-card {
+    background: white;
+    border-radius: 10px;
+    border: 1px solid #e0e0e0;
+    padding: 20px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    transition: transform 0.3s ease;
+    box-shadow: 0 0 10px var(--secondary-color);
+    margin: 0 10px;
+}
+
+.project-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
+    box-shadow: 0 0 20px var(--accent-color);
+}
+
+#addProjectBtn {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-weight: bold;
+}
+
+#addProjectBtn:hover {
+    background-color: var(--secondary-color);
+}
+
+.about {
+    background-color: white;
+    padding: 50px 0;
+}
+
+.contact {
+    padding: 50px 0;
+}
+
+.contact form {
+    max-width: 100%;
+    margin: 0 auto;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    padding: 0 15px;
+}
+
+.contact input,
+.contact textarea {
+    margin-bottom: 15px;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 16px;
+}
+
+.contact textarea {
+    height: 150px;
+    resize: vertical;
+}
+
+.contact button {
+    padding: 12px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.contact button:hover {
+    background-color: var(--secondary-color);
+}
+
+footer {
+    background-color: var(--text-color);
+    color: white;
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+}
+
+.social-links {
+    margin-top: 15px;
+}
+
+.social-links a {
+    color: white;
+    margin: 0 10px;
+    font-size: 20px;
+    transition: color 0.3s ease;
+}
+
+.social-links a:hover {
+    color: var(--accent-color);
+}
+
+.contact-info {
+    margin-top: 20px;
+    padding: 15px;
+    background: rgba(10, 25, 47, 0.1);
+    border-radius: 8px;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.contact-info p {
+    margin: 8px 0;
+    font-size: 0.9em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
+}
+
+.contact-info strong {
+    color: var(--secondary-color);
+    min-width: 70px;
+    text-align: center;
+}
+
+.contact-info a {
+    color: var(--secondary-color);
+    text-decoration: none;
+    transition: all 0.3s ease;
+}
+
+.contact-info a:hover {
+    color: var(--accent-color);
+    text-shadow: 0 0 8px var(--accent-color);
+}
+
+.contact-info i {
+    color: var(--secondary-color);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+}
+
+.project-link {
+    display: inline-block;
+    margin-top: 15px;
+}
+
+/* Prevent horizontal overflow */
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
+/* Responsive styles */
 @media (max-width: 600px) {
     .hero {
         scroll-margin-top: 80px;
@@ -401,9 +611,4 @@ section {
     border-radius: 5px;
     font-size: 0.8rem;
     margin: 2px;
-}
-
-.project-link {
-    display: inline-block;
-    margin-top: 15px;
 }
