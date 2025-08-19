@@ -41,14 +41,31 @@ header .container {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
+    padding: 10px 0;
+}
+
+.header-left, .header-center, .header-right {
+    flex: 1 1 100%;
+    text-align: center;
+    margin: 5px 0;
 }
 
 nav ul {
     display: flex;
     list-style: none;
+    flex-direction: column;
+    display: none;
+    width: 100%;
+    padding: 0;
+}
+
+nav ul.show {
+    display: flex;
 }
 
 nav ul li {
+    margin: 10px 0;
     margin-left: 20px;
 }
 
@@ -77,7 +94,7 @@ main {
     background-color: var(--secondary-color);
     color: white;
     text-align: center;
-    padding: 120px 0;
+    padding: 100px 0;
     background-image: linear-gradient(45deg, var(--primary-color), var(--secondary-color));
 }
 
@@ -95,10 +112,15 @@ main {
 }
 
 .hero h2 {
-    font-size: 2.5em;
+    font-size: 1.8em;
     margin-bottom: 20px;
     white-space: normal;
     overflow-wrap: break-word;
+    padding: 0 10px;
+}
+
+.hero p {
+    padding: 0 15px;
 }
 
 .projects {
@@ -107,9 +129,10 @@ main {
 
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: 1fr;
     gap: 30px;
     margin-top: 30px;
+    padding: 0 10px;
 }
 
 .project-card {
@@ -120,6 +143,7 @@ main {
     box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     transition: transform 0.3s ease;
     box-shadow: 0 0 10px var(--secondary-color);
+    margin: 0 10px;
 }
 
 .project-card:hover {
@@ -155,10 +179,12 @@ main {
 }
 
 .contact form {
-    max-width: 600px;
+    max-width: 100%;
     margin: 0 auto;
     display: flex;
     flex-direction: column;
+    width: 100%;
+    padding: 0 15px;
 }
 
 .contact input,
@@ -229,12 +255,15 @@ footer {
     align-items: center;
     justify-content: center;
     gap: 10px;
+    flex-direction: column;
+    text-align: center;
+    gap: 5px;
 }
 
 .contact-info strong {
     color: var(--secondary-color);
     min-width: 70px;
-    text-align: right;
+    text-align: center;
 }
 
 .contact-info a {
@@ -259,7 +288,41 @@ img {
     margin: 0 auto;
 }
 
+.menu-toggle {
+    display: none;
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1.5rem;
+    cursor: pointer;
+    padding: 10px;
+}
+
 @media (max-width: 768px) {
+    .menu-toggle {
+        display: block;
+        position: absolute;
+        right: 20px;
+        top: 15px;
+    }
+    
+    .header-left h1 {
+        font-size: 1.5em;
+        margin-top: 10px;
+    }
+    
+    .tagline p {
+        font-size: 0.9em;
+    }
+    
+    .project-card {
+        margin: 0 10px;
+    }
+    
+    .about img {
+        max-width: 200px;
+    }
+    
     header .container {
         flex-direction: column;
         text-align: center;
@@ -289,6 +352,29 @@ img {
         width: 90%;
         padding: 0 1rem;
         margin: 0 auto;
+    }
+}
+
+@media (max-width: 480px) {
+    section {
+        padding: 30px 0;
+    }
+    
+    .hero {
+        padding: 80px 0;
+    }
+    
+    .hero h2 {
+        font-size: 1.5em;
+    }
+    
+    .hero p {
+        font-size: 0.9em;
+    }
+    
+    .about p {
+        padding: 0 10px;
+        text-align: justify;
     }
 }
 

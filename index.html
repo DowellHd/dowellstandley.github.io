@@ -6,6 +6,7 @@
     <title>Dowell Standley Jr. | Software Engineer & AI Developer</title>
     <link rel="stylesheet" href="css/styles.css">
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 </head>
 <body>
@@ -19,9 +20,12 @@
                     <p>Software Engineer &ndash; AI Enthusiast &ndash; Problem Solver</p>
                 </div>
             </div>
+            <button class="menu-toggle" aria-label="Toggle menu">
+                <i class="fas fa-bars"></i>
+            </button>
             <div class="header-right">
                 <nav>
-                    <ul>
+                    <ul id="nav-menu">
                         <li><a href="#home">Home</a></li>
                         <li><a href="#projects">Projects</a></li>
                         <li><a href="#about">About</a></li>
@@ -49,7 +53,7 @@
                     <div class="project-card">
                         <h3>AI Investment Bot</h3>
                         <a href="https://github.com/DowellHd/smart-stock-bot" target="_blank">
-                            <img src="images/ai-investment-bot-thumbnail.jpg" alt="AI Investment Bot Thumbnail" class="project-thumbnail">
+                            <img src="/images/ai-investment-bot-thumbnail.jpg" alt="AI Investment Bot Thumbnail" class="project-thumbnail">
                         </a>
                         <p>An AI-driven trading bot using reinforcement learning.</p>
                     </div>
@@ -60,7 +64,7 @@
         <section id="about" class="about">
             <div class="container">
                 <h2>About Me</h2>
-                <img src="images/Grad%20Pic.png"
+                <img src="/images/Grad%20Pic.png"
                      alt="Dowell Standley Jr. Graduation Photo"
                      class="grad-pic">
                 <p>🧠💼 Oakland-Bred Hustler with a Head Full of Code and a Heart Set on Impact. Dowell Standley Jr. is a recent CS grad grinding through the real world one strategic step at a time. Whether he's troubleshooting Splunk dashboards, plotting AI-powered investment tools, or clocking hours at Target while prepping for his breakout tech role — Dowell's always making moves.
@@ -100,5 +104,25 @@
     </footer>
 
     <script src="js/script.js"></script>
+    <script>
+        // Mobile menu toggle
+        const menuToggle = document.querySelector('.menu-toggle');
+        const navMenu = document.getElementById('nav-menu');
+        
+        menuToggle.addEventListener('click', () => {
+            navMenu.classList.toggle('show');
+            menuToggle.setAttribute('aria-expanded', 
+                menuToggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
+            );
+        });
+        
+        // Close menu when clicking on a nav link
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', () => {
+                navMenu.classList.remove('show');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            });
+        });
+    </script>
 </body>
 </html>

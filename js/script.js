@@ -1,6 +1,8 @@
 document.addEventListener('DOMContentLoaded', () => {
     const projectGrid = document.getElementById('projectGrid');
     const contactForm = document.getElementById('contactForm');
+    const menuToggle = document.querySelector('.menu-toggle');
+    const navMenu = document.getElementById('nav-menu');
 
     // Sample projects data
     let projects = [
@@ -8,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
             title: 'AI Investment Bot',
             description: 'An AI-driven application that analyzes market data and suggests stock moves using reinforcement learning.',
             technologies: ['Python', 'TensorFlow', 'Flask'],
-            image: 'images/ai-investment-bot-thumbnail.jpg',
+            image: '/images/ai-investment-bot-thumbnail.jpg',
             link: 'https://github.com/DowellHd/smart-stock-bot'
         }
     ];
@@ -17,9 +19,8 @@ document.addEventListener('DOMContentLoaded', () => {
     function createProjectCard(project) {
         const card = document.createElement('div');
         card.className = 'project-card';
-        card.style.transition = 'transform 0.3s ease';
         card.innerHTML = `
-            <img src="${project.image}" alt="${project.title}" style="width: 100%; border-radius: 5px;">
+            <img src="${project.image}" alt="${project.title}" class="project-image">
             <h3>${project.title}</h3>
             <p>${project.description}</p>
             <div class="technologies">
@@ -27,13 +28,12 @@ document.addEventListener('DOMContentLoaded', () => {
             </div>
             <a href="${project.link}" target="_blank" class="project-link">View Project</a>
         `;
-        card.addEventListener('mouseover', () => card.style.transform = 'scale(1.03)');
-        card.addEventListener('mouseout', () => card.style.transform = 'scale(1)');
         return card;
     }
 
     // Function to render all projects
     function renderProjects() {
+        if (!projectGrid) return;
         projectGrid.innerHTML = '';
         projects.forEach(project => {
             projectGrid.appendChild(createProjectCard(project));
@@ -41,47 +41,91 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Contact form handling
-    contactForm.addEventListener('submit', (e) => {
-        e.preventDefault();
-        const formData = new FormData(contactForm);
-        // Here you would typically send this data to a server
-        fetch('https://formspree.io/f/myzjydyv', {
-            method: 'POST',
-            body: formData,
-            headers: {
-                'Accept': 'application/json'
+    if (contactForm) {
+        contactForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const submitButton = contactForm.querySelector('button[type="submit"]');
+            const originalButtonText = submitButton.textContent;
+            
+            try {
+                submitButton.disabled = true;
+                submitButton.textContent = 'Sending...';
+                
+                const formData = new FormData(contactForm);
+                const response = await fetch('https://formspree.io/f/myzjydyv', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'Accept': 'application/json'
+                    }
+                });
+
+                if (response.ok) {
+                    alert('Thank you for your message! You will hear back from me soon.');
+                    contactForm.reset();
+                } else {
+                    throw new Error('Network response was not ok');
+                }
+            } catch (error) {
+                alert('Oops! There was a problem sending your message. Please try again later.');
+                console.error('Error:', error);
+            } finally {
+                submitButton.disabled = false;
+                submitButton.textContent = originalButtonText;
             }
-        })
-        .then(response => {
-            if (response.ok) {
-                alert('Thank you for your message! You will hear back from me soon.');
-            } else {
-                alert('Oops! There was a problem sending your message.');
-            }
-        })
-        .catch(error => {
-            alert('Oops! There was a problem sending your message.');
         });
-        contactForm.reset();
-    });
+    }
 
     // Smooth scrolling for navigation links
     document.querySelectorAll('nav a').forEach(anchor => {
         anchor.addEventListener('click', function(e) {
             e.preventDefault();
-            const targetId = this.getAttribute('href').substring(1);
-            const targetElement = document.getElementById(targetId);
-            targetElement.scrollIntoView({
-                behavior: 'smooth',
-                block: 'start'
-            });
+            const targetId = this.getAttribute('href');
+            if (targetId === '#') return;
+            
+            const targetElement = document.querySelector(targetId);
+            if (targetElement) {
+                // Close mobile menu if open
+                if (navMenu.classList.contains('show')) {
+                    navMenu.classList.remove('show');
+                    menuToggle.setAttribute('aria-expanded', 'false');
+                }
+                
+                // Scroll to target
+                window.scrollTo({
+                    top: targetElement.offsetTop - 100,
+                    behavior: 'smooth'
+                });
+                
+                // Update URL without page reload
+                history.pushState(null, '', targetId);
+            }
         });
     });
+
+    // Close menu when clicking outside
+    document.addEventListener('click', (e) => {
+        if (!e.target.closest('nav') && !e.target.closest('.menu-toggle')) {
+            navMenu.classList.remove('show');
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+    });
+
+    // Prevent scrolling when menu is open
+    navMenu.addEventListener('touchmove', (e) => {
+        if (navMenu.classList.contains('show')) {
+            e.preventDefault();
+        }
+    }, { passive: false });
 
     // Load projects from localStorage on page load
     const savedProjects = localStorage.getItem('portfolioProjects');
     if (savedProjects) {
-        projects = JSON.parse(savedProjects);
+        try {
+            projects = JSON.parse(savedProjects);
+        } catch (e) {
+            console.error('Error parsing saved projects:', e);
+        }
     }
 
     // Initial render
