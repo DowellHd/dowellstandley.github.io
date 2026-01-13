@@ -13,11 +13,16 @@
     box-sizing: border-box;
 }
 
+/* Prevent white flash on iOS overscroll */
+html {
+    background-color: var(--primary-color);
+}
+
 body {
     font-family: 'Roboto Mono', monospace;
     line-height: 1.6;
     color: var(--text-color);
-    background-color: var(--background-color);
+    background-color: var(--primary-color);
 }
 
 .container {
@@ -98,8 +103,9 @@ header .container {
     }
 }
 
-/* Mobile menu toggle */
+/* Mobile menu toggle - hidden by default on desktop */
 .menu-toggle {
+    display: none;
     background: none;
     border: none;
     color: white;
@@ -130,20 +136,29 @@ nav a {
     white-space: nowrap;
 }
 
+nav a:hover {
+    color: var(--secondary-color);
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
+    /* Show hamburger on mobile */
+    .menu-toggle {
+        display: block;
+    }
+
     header .container {
         padding: 5px 10px;
     }
-    
+
     .header-left {
         max-width: 70%;
     }
-    
+
     .header-left h1 {
         font-size: 1rem;
     }
-    
+
     nav {
         position: fixed;
         top: 50px;
@@ -154,22 +169,23 @@ nav a {
         display: none;
         box-shadow: 0 4px 6px rgba(0,0,0,0.1);
     }
-    
+
     nav.show {
         display: block;
     }
-    
+
     nav ul {
         flex-direction: column;
     }
-    
+
     nav ul li {
         margin: 5px 0;
+        margin-left: 0;
     }
-    
+
     nav a {
         display: block;
-        padding: 8px 0;
+        padding: 12px 0;
     }
 }
 
@@ -181,6 +197,12 @@ nav a {
     color: white;
     position: relative;
     margin-top: 0;
+    /* Use modern viewport units with fallback for iOS */
+    min-height: 100vh;
+    min-height: 100svh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .hero h2 {
@@ -197,25 +219,29 @@ nav a {
     line-height: 1.6;
 }
 
-/* Responsive styles */
+/* Mobile hero styles */
 @media (max-width: 768px) {
     .hero {
-        padding: 100px 20px;
+        padding: 80px 20px 40px;
+        min-height: 100vh;
+        min-height: 100svh;
     }
-    
+
     .hero h2 {
-        font-size: 1.8em;
+        font-size: 1.6em;
+        line-height: 1.3;
     }
-    
+
     .hero p {
         font-size: 1em;
     }
 }
 
-/* Desktop styles */
+/* Desktop hero styles */
 @media (min-width: 769px) {
     .hero {
         padding: 120px 0 80px;
+        min-height: auto;
     }
 }
 
@@ -385,209 +411,14 @@ img {
 }
 
 main {
-    margin-top: 80px;
+    margin-top: 0;
+    background-color: var(--background-color);
 }
 
 /* Ensure hero content is properly spaced and sized */
 .hero .container {
     padding: 20px;
     max-width: 800px;
-    margin: 0 auto;
-}
-
-/* Adjust hero content for different orientations */
-@media (max-width: 768px) {
-    .hero {
-        padding: 100px 15px;
-        min-height: calc(100vh - 60px); /* Account for header */
-    }
-    
-    .hero h2 {
-        font-size: 1.8em;
-        margin-bottom: 20px;
-        line-height: 1.3;
-    }
-    
-    .hero p {
-        font-size: 1.1em;
-        margin: 0 auto 20px;
-        max-width: 90%;
-    }
-}
-
-/* Specific adjustments for portrait mode */
-@media (max-width: 768px) and (orientation: portrait) {
-    .hero {
-        padding: 80px 15px;
-    }
-    
-    .hero h2 {
-        font-size: 1.6em;
-    }
-    
-    .hero p {
-        font-size: 1em;
-    }
-}
-
-.project-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
-    margin-top: 30px;
-    padding: 0 10px;
-}
-
-.project-card {
-    background: white;
-    border-radius: 10px;
-    border: 1px solid #e0e0e0;
-    padding: 20px;
-    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
-    transition: transform 0.3s ease;
-    box-shadow: 0 0 10px var(--secondary-color);
-    margin: 0 10px;
-}
-
-.project-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 8px 12px rgba(0,0,0,0.15);
-    box-shadow: 0 0 20px var(--accent-color);
-}
-
-#addProjectBtn {
-    display: block;
-    margin: 30px auto;
-    padding: 10px 20px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-weight: bold;
-}
-
-#addProjectBtn:hover {
-    background-color: var(--secondary-color);
-}
-
-.about {
-    background-color: white;
-    padding: 50px 0;
-}
-
-.contact {
-    padding: 50px 0;
-}
-
-.contact form {
-    max-width: 100%;
-    margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding: 0 15px;
-}
-
-.contact input,
-.contact textarea {
-    margin-bottom: 15px;
-    padding: 12px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 16px;
-}
-
-.contact textarea {
-    height: 150px;
-    resize: vertical;
-}
-
-.contact button {
-    padding: 12px;
-    background-color: var(--primary-color);
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-
-.contact button:hover {
-    background-color: var(--secondary-color);
-}
-
-footer {
-    background-color: var(--text-color);
-    color: white;
-    text-align: center;
-    padding: 20px 0;
-    margin-top: 50px;
-}
-
-.social-links {
-    margin-top: 15px;
-}
-
-.social-links a {
-    color: white;
-    margin: 0 10px;
-    font-size: 20px;
-    transition: color 0.3s ease;
-}
-
-.social-links a:hover {
-    color: var(--accent-color);
-}
-
-.contact-info {
-    margin-top: 20px;
-    padding: 15px;
-    background: rgba(10, 25, 47, 0.1);
-    border-radius: 8px;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.contact-info p {
-    margin: 8px 0;
-    font-size: 0.9em;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    flex-direction: column;
-    text-align: center;
-    gap: 5px;
-}
-
-.contact-info strong {
-    color: var(--secondary-color);
-    min-width: 70px;
-    text-align: center;
-}
-
-.contact-info a {
-    color: var(--secondary-color);
-    text-decoration: none;
-    transition: all 0.3s ease;
-}
-
-.contact-info a:hover {
-    color: var(--accent-color);
-    text-shadow: 0 0 8px var(--accent-color);
-}
-
-.contact-info i {
-    color: var(--secondary-color);
-}
-
-img {
-    max-width: 100%;
-    height: auto;
-    display: block;
     margin: 0 auto;
 }
 
@@ -602,22 +433,17 @@ html, body {
     overflow-x: hidden;
 }
 
-/* Responsive styles */
+/* Small mobile styles */
 @media (max-width: 600px) {
-    .hero {
-        scroll-margin-top: 80px;
-    }
     .hero h2 {
-        font-size: 1.5em;
-        line-height: 1.2;
-        margin: 0 auto;
+        font-size: 1.4em;
+        line-height: 1.3;
         max-width: 90vw;
-        text-align: center;
     }
+
     .container {
-        width: 90%;
+        width: 92%;
         padding: 0 1rem;
-        margin: 0 auto;
     }
 }
 
@@ -625,32 +451,23 @@ html, body {
     section {
         padding: 30px 0;
     }
-    
-    .hero {
-        padding: 80px 0;
-    }
-    
+
     .hero h2 {
-        font-size: 1.5em;
+        font-size: 1.3em;
     }
-    
+
     .hero p {
-        font-size: 0.9em;
-    }
-    
-    .about p {
-        padding: 0 10px;
-        text-align: justify;
+        font-size: 0.95em;
     }
 }
 
 section {
-    scroll-margin-top: 120px;
+    scroll-margin-top: 80px;
 }
 
 .project-card p {
     font-size: 1rem;
-    color: #ccc;
+    color: var(--text-color);
     flex-grow: 1;
 }
 
@@ -671,15 +488,28 @@ section {
 }
 
 /* About Section Styling */
+.about {
+    background-color: white;
+    padding: 60px 0;
+}
+
+.about h2 {
+    text-align: center;
+    margin-bottom: 1.5rem;
+    color: var(--primary-color);
+}
+
 .about-content {
-    max-width: 800px;
+    max-width: 700px;
     margin: 0 auto;
     text-align: left;
+    padding: 0 20px;
 }
 
 .about-content p {
-    margin-bottom: 1rem;
+    margin-bottom: 1.25rem;
     line-height: 1.8;
+    font-size: 1rem;
 }
 
 .about-content p:last-child {
@@ -687,10 +517,38 @@ section {
 }
 
 .grad-pic {
-    max-width: 200px;
-    border-radius: 10px;
-    margin: 0 auto 2rem auto;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+    max-width: 180px;
+    border-radius: 50%;
+    margin: 0 auto 1.5rem auto;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    border: 4px solid var(--secondary-color);
+}
+
+/* Mobile About Section */
+@media (max-width: 768px) {
+    .about {
+        padding: 40px 0;
+    }
+
+    .about h2 {
+        font-size: 1.6rem;
+        margin-bottom: 1.25rem;
+    }
+
+    .about-content {
+        padding: 0 15px;
+    }
+
+    .about-content p {
+        font-size: 1.05rem;
+        line-height: 1.75;
+        margin-bottom: 1rem;
+    }
+
+    .grad-pic {
+        max-width: 150px;
+        margin-bottom: 1.25rem;
+    }
 }
 
 /* Featured Project Card */
