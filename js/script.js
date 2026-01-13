@@ -4,16 +4,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const menuToggle = document.querySelector('.menu-toggle');
     const navMenu = document.querySelector('nav');
 
-    // Sample projects data
-    let projects = [
-        {
-            title: 'AI Investment Bot',
-            description: 'An AI-driven application that analyzes market data and suggests stock moves using reinforcement learning.',
-            technologies: ['Python', 'TensorFlow', 'Flask'],
-            image: '/images/ai-investment-bot-thumbnail.jpg',
-            link: 'https://github.com/DowellHd/smart-stock-bot'
-        }
-    ];
+    // Projects data - SSB is featured in HTML, other projects go here
+    let projects = [];
 
     // Function to create a project card
     function createProjectCard(project) {
