@@ -565,6 +565,7 @@ section {
     width: 100%;
     max-height: 400px;
     overflow: hidden;
+    background-color: var(--primary-color);
 }
 
 .featured-project-image img {
@@ -768,11 +769,16 @@ section {
     .featured-project-image {
         max-height: none;
         height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
     }
 
     .featured-project-image img {
+        width: 100%;
         height: 100%;
-        object-fit: cover;
+        object-fit: contain;
+        object-position: center;
     }
 }
 
