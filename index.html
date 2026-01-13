@@ -185,21 +185,29 @@
     <script>
         // Mobile menu toggle
         const menuToggle = document.querySelector('.menu-toggle');
-        const navMenu = document.getElementById('nav-menu');
-        
+        const nav = document.querySelector('nav');
+
         menuToggle.addEventListener('click', () => {
-            navMenu.classList.toggle('show');
-            menuToggle.setAttribute('aria-expanded', 
+            nav.classList.toggle('show');
+            menuToggle.setAttribute('aria-expanded',
                 menuToggle.getAttribute('aria-expanded') === 'true' ? 'false' : 'true'
             );
         });
-        
+
         // Close menu when clicking on a nav link
         document.querySelectorAll('nav a').forEach(link => {
             link.addEventListener('click', () => {
-                navMenu.classList.remove('show');
+                nav.classList.remove('show');
                 menuToggle.setAttribute('aria-expanded', 'false');
             });
+        });
+
+        // Close menu when clicking outside
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('nav') && !e.target.closest('.menu-toggle')) {
+                nav.classList.remove('show');
+                menuToggle.setAttribute('aria-expanded', 'false');
+            }
         });
     </script>
 </body>
