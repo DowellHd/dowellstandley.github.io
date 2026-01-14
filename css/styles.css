@@ -28,7 +28,6 @@ body {
 .container {
     width: 80%;
     margin: 0 auto;
-    overflow: hidden;
     padding: 20px;
 }
 
@@ -152,7 +151,7 @@ nav a:hover {
     /* Show hamburger on mobile */
     .menu-toggle {
         display: block;
-        z-index: 1001;
+        z-index: 1002;
         position: relative;
     }
 
@@ -170,40 +169,52 @@ nav a:hover {
 
     #main-nav {
         position: fixed;
-        top: 50px;
+        top: 0;
         left: 0;
         right: 0;
-        background: var(--primary-color);
-        padding: 0;
+        bottom: 0;
+        background: rgba(10, 25, 47, 0.98);
+        padding-top: 70px;
         display: none;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
-        z-index: 999;
-        max-height: calc(100vh - 50px);
+        z-index: 1001;
         overflow-y: auto;
     }
 
     #main-nav.show {
-        display: block;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-start;
     }
 
     #main-nav ul {
         flex-direction: column;
-        padding: 10px 0;
+        padding: 20px 0;
+        width: 100%;
+        max-width: 300px;
     }
 
     #main-nav ul li {
         margin: 0;
+        text-align: center;
     }
 
     #main-nav a {
         display: block;
-        padding: 15px 20px;
-        border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+        padding: 18px 30px;
+        font-size: 1.2rem;
+        border-bottom: 1px solid rgba(100, 255, 218, 0.2);
     }
 
     #main-nav a:hover,
     #main-nav a:active {
-        background: rgba(100, 255, 218, 0.1);
+        background: rgba(100, 255, 218, 0.15);
+        color: var(--secondary-color);
+    }
+
+    /* Prevent body scroll when menu is open */
+    body.menu-open {
+        overflow: hidden;
     }
 }
 
@@ -581,20 +592,17 @@ section {
 
 .featured-project-image {
     width: 100%;
-    aspect-ratio: 16 / 10;
-    overflow: hidden;
+    aspect-ratio: 16 / 9;
     background-color: var(--primary-color);
-    position: relative;
+    flex-shrink: 0;
 }
 
 .featured-project-image img {
-    position: absolute;
-    top: 0;
-    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
-    object-position: center;
+    object-position: center top;
+    display: block;
 }
 
 .featured-project-content {
@@ -808,14 +816,12 @@ section {
     .featured-project-card {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        align-items: start;
+        align-items: stretch;
     }
 
     .featured-project-image {
-        aspect-ratio: 4 / 3;
-        min-height: 400px;
-        position: sticky;
-        top: 80px;
+        aspect-ratio: auto;
+        min-height: 100%;
     }
 }
 

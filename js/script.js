@@ -1,8 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
     const projectGrid = document.getElementById('projectGrid');
     const contactForm = document.getElementById('contactForm');
-    const menuToggle = document.querySelector('.menu-toggle');
-    const navMenu = document.querySelector('nav');
 
     // Projects data - SSB is featured in HTML, other projects go here
     let projects = [];
@@ -38,11 +36,11 @@ document.addEventListener('DOMContentLoaded', () => {
             e.preventDefault();
             const submitButton = contactForm.querySelector('button[type="submit"]');
             const originalButtonText = submitButton.textContent;
-            
+
             try {
                 submitButton.disabled = true;
                 submitButton.textContent = 'Sending...';
-                
+
                 const formData = new FormData(contactForm);
                 const response = await fetch('https://formspree.io/f/myzjydyv', {
                     method: 'POST',
@@ -67,62 +65,6 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         });
     }
-
-    // Mobile menu toggle
-    if (menuToggle && navMenu) {
-        menuToggle.addEventListener('click', function() {
-            const isExpanded = this.getAttribute('aria-expanded') === 'true';
-            this.setAttribute('aria-expanded', !isExpanded);
-            navMenu.classList.toggle('show');
-        });
-        
-        // Close menu when clicking on a nav link
-        const navLinks = document.querySelectorAll('nav a');
-        navLinks.forEach(link => {
-            link.addEventListener('click', () => {
-                if (window.innerWidth <= 768) {
-                    navMenu.classList.remove('show');
-                    menuToggle.setAttribute('aria-expanded', 'false');
-                }
-            });
-        });
-    }
-
-    // Smooth scrolling for anchor links
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener('click', function(e) {
-            e.preventDefault();
-            const targetId = this.getAttribute('href');
-            if (targetId === '#') return;
-            
-            const targetElement = document.querySelector(targetId);
-            if (targetElement) {
-                const headerOffset = 80;
-                const elementPosition = targetElement.getBoundingClientRect().top;
-                const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: 'smooth'
-                });
-            }
-        });
-    });
-
-    // Close menu when clicking outside
-    document.addEventListener('click', (e) => {
-        if (!e.target.closest('nav') && !e.target.closest('.menu-toggle')) {
-            navMenu.classList.remove('show');
-            menuToggle.setAttribute('aria-expanded', 'false');
-        }
-    });
-
-    // Prevent scrolling when menu is open
-    navMenu.addEventListener('touchmove', (e) => {
-        if (navMenu.classList.contains('show')) {
-            e.preventDefault();
-        }
-    }, { passive: false });
 
     // Load projects from localStorage on page load
     const savedProjects = localStorage.getItem('portfolioProjects');
