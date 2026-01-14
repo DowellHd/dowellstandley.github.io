@@ -152,6 +152,8 @@ nav a:hover {
     /* Show hamburger on mobile */
     .menu-toggle {
         display: block;
+        z-index: 1001;
+        position: relative;
     }
 
     header .container {
@@ -166,33 +168,42 @@ nav a:hover {
         font-size: 1rem;
     }
 
-    nav {
+    #main-nav {
         position: fixed;
         top: 50px;
         left: 0;
         right: 0;
         background: var(--primary-color);
-        padding: 10px 20px;
+        padding: 0;
         display: none;
-        box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        box-shadow: 0 4px 6px rgba(0,0,0,0.2);
+        z-index: 999;
+        max-height: calc(100vh - 50px);
+        overflow-y: auto;
     }
 
-    nav.show {
+    #main-nav.show {
         display: block;
     }
 
-    nav ul {
+    #main-nav ul {
         flex-direction: column;
+        padding: 10px 0;
     }
 
-    nav ul li {
-        margin: 5px 0;
-        margin-left: 0;
+    #main-nav ul li {
+        margin: 0;
     }
 
-    nav a {
+    #main-nav a {
         display: block;
-        padding: 12px 0;
+        padding: 15px 20px;
+        border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    }
+
+    #main-nav a:hover,
+    #main-nav a:active {
+        background: rgba(100, 255, 218, 0.1);
     }
 }
 
@@ -570,12 +581,16 @@ section {
 
 .featured-project-image {
     width: 100%;
-    height: 300px;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
     background-color: var(--primary-color);
+    position: relative;
 }
 
 .featured-project-image img {
+    position: absolute;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     object-fit: cover;
@@ -668,7 +683,6 @@ section {
     margin-bottom: 25px;
     border: 1px solid #e0e0e0;
     border-radius: 8px;
-    overflow: hidden;
 }
 
 .project-details summary {
@@ -678,6 +692,27 @@ section {
     font-weight: bold;
     color: var(--primary-color);
     transition: background 0.3s ease;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border-radius: 8px;
+}
+
+.project-details summary::-webkit-details-marker {
+    display: none;
+}
+
+.project-details summary::after {
+    content: "+";
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: var(--secondary-color);
+    transition: transform 0.2s ease;
+}
+
+.project-details[open] summary::after {
+    content: "−";
 }
 
 .project-details summary:hover {
@@ -686,6 +721,7 @@ section {
 
 .project-details[open] summary {
     border-bottom: 1px solid #e0e0e0;
+    border-radius: 8px 8px 0 0;
 }
 
 .details-content {
@@ -702,7 +738,7 @@ section {
     position: relative;
     padding-left: 20px;
     margin-bottom: 8px;
-    line-height: 1.5;
+    line-height: 1.6;
 }
 
 .details-content li::before {
@@ -772,18 +808,14 @@ section {
     .featured-project-card {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        align-items: start;
     }
 
     .featured-project-image {
-        height: 100%;
+        aspect-ratio: 4 / 3;
         min-height: 400px;
-    }
-
-    .featured-project-image img {
-        width: 100%;
-        height: 100%;
-        object-fit: cover;
-        object-position: center;
+        position: sticky;
+        top: 80px;
     }
 }
 
