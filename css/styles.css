@@ -816,11 +816,10 @@ section {
     .featured-project-card {
         display: grid;
         grid-template-columns: 1fr 1fr;
-        align-items: start;
     }
 
     .featured-project-image {
-        height: 400px;
+        height: 100%;
         aspect-ratio: unset;
         border-radius: 12px 0 0 12px;
     }
