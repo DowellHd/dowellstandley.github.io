@@ -590,16 +590,17 @@ section {
 }
 
 .featured-project-card .featured-media {
-    height: 420px;
+    aspect-ratio: 16 / 10;
     overflow: hidden;
     border-radius: 14px;
+    background-color: #0a192f;
 }
 
 .featured-project-card .featured-media img {
     width: 100%;
     height: 100%;
     display: block;
-    object-fit: cover;
+    object-fit: contain;
     object-position: center;
 }
 
@@ -822,13 +823,11 @@ section {
     }
 }
 
-@media (max-width: 900px) {
-    .featured-project-card .featured-media {
-        height: 320px;
-    }
-}
-
 @media (max-width: 768px) {
+    .featured-project-card .featured-media {
+        aspect-ratio: 4 / 3;
+    }
+
     .featured-project-content {
         padding: 20px;
     }
@@ -844,11 +843,5 @@ section {
 
     .tech-label {
         margin-bottom: 5px;
-    }
-}
-
-@media (max-width: 600px) {
-    .featured-project-card .featured-media {
-        height: 240px;
     }
 }
