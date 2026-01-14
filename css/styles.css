@@ -819,9 +819,13 @@ section {
     }
 
     .featured-project-image {
-        height: 100%;
         aspect-ratio: unset;
+        align-self: stretch;
         border-radius: 12px 0 0 12px;
+    }
+
+    .featured-project-image img {
+        height: 100%;
     }
 }
 
