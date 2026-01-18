@@ -2,6 +2,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const projectGrid = document.getElementById('projectGrid');
     const contactForm = document.getElementById('contactForm');
 
+    // Scroll-based Fade-in Animation using Intersection Observer
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px 0px -50px 0px',
+        threshold: 0.1
+    };
+
+    const animationObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('visible');
+                // Once animated, stop observing to prevent re-triggering
+                animationObserver.unobserve(entry.target);
+            }
+        });
+    }, observerOptions);
+
+    // Observe all elements with animation classes
+    const animatedElements = document.querySelectorAll('.fade-in, .fade-in-stagger, .slide-in-left, .slide-in-right, .scale-in');
+    animatedElements.forEach(el => animationObserver.observe(el));
+
     // Projects data - SSB is featured in HTML, other projects go here
     let projects = [];
 
