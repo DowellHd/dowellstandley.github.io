@@ -854,22 +854,116 @@ section {
 /* Project Actions */
 .project-actions {
     margin-bottom: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: flex-start;
 }
 
-.project-link.primary {
-    display: inline-block;
-    padding: 12px 28px;
-    background-color: var(--primary-color);
-    color: white;
+.project-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
     text-decoration: none;
     border-radius: 6px;
     font-weight: bold;
     transition: all 0.3s ease;
+    font-size: 0.95rem;
+}
+
+.project-link.primary {
+    background-color: var(--primary-color);
+    color: white;
 }
 
 .project-link.primary:hover {
     background-color: var(--secondary-color);
     color: var(--primary-color);
+}
+
+.project-link.secondary {
+    background-color: transparent;
+    color: var(--primary-color);
+    border: 2px solid var(--primary-color);
+}
+
+.project-link.secondary:hover {
+    background-color: var(--primary-color);
+    color: white;
+}
+
+.project-link i {
+    font-size: 1rem;
+}
+
+/* Live Site Wrapper with Tooltip */
+.live-site-wrapper {
+    position: relative;
+    display: inline-block;
+}
+
+.live-site-wrapper .tooltip {
+    visibility: hidden;
+    opacity: 0;
+    position: absolute;
+    bottom: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    padding: 10px 14px;
+    border-radius: 6px;
+    font-size: 0.8rem;
+    font-weight: normal;
+    white-space: nowrap;
+    z-index: 100;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    border: 1px solid var(--secondary-color);
+}
+
+.live-site-wrapper .tooltip::after {
+    content: "";
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    transform: translateX(-50%);
+    border-width: 6px;
+    border-style: solid;
+    border-color: var(--primary-color) transparent transparent transparent;
+}
+
+.live-site-wrapper:hover .tooltip {
+    visibility: visible;
+    opacity: 1;
+}
+
+/* Responsive Project Actions */
+@media (max-width: 600px) {
+    .project-actions {
+        flex-direction: column;
+        align-items: stretch;
+    }
+
+    .project-link {
+        justify-content: center;
+        text-align: center;
+    }
+
+    .live-site-wrapper {
+        width: 100%;
+    }
+
+    .live-site-wrapper .project-link {
+        width: 100%;
+    }
+
+    .live-site-wrapper .tooltip {
+        white-space: normal;
+        width: 220px;
+        text-align: center;
+    }
 }
 
 /* Project Disclaimer */
