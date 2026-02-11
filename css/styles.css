@@ -16,6 +16,7 @@
 /* Prevent white flash on iOS overscroll */
 html {
     background-color: var(--primary-color);
+    scroll-behavior: smooth;
 }
 
 body {
