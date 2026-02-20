@@ -1142,24 +1142,21 @@ section {
 }
 
 /* Responsive Featured Project */
- @media (min-width: 769px) {
-    .featured-project-card {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        align-items: start;
-    }
-
+@media (min-width: 769px) {
     .featured-project-card .featured-media {
-        border-radius: 12px 0 0 12px;
+        border-radius: 12px 12px 0 0;
         height: auto;
-        overflow: visible;
+        overflow: hidden;
+        position: static;
     }
 
     .featured-project-card .featured-media img {
         position: static;
+        width: 100%;
         height: auto;
-        object-fit: contain;
+        object-fit: unset;
         transform: none;
+        display: block;
     }
 }
 
