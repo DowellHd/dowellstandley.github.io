@@ -387,18 +387,14 @@
     function init() {
         buildModal();
 
-        // Find the FinRAG "Live Demo" anchor by its href="#" inside .other-project-card
-        const demoBtns = document.querySelectorAll('.other-project-card .project-link.primary');
-        demoBtns.forEach((btn) => {
-            if (btn.textContent.trim().includes('Live Demo')) {
-                btn.href = 'javascript:void(0)';
-                btn.setAttribute('aria-haspopup', 'dialog');
-                btn.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    openModal();
-                });
-            }
-        });
+        const btn = document.getElementById('finrag-demo-btn');
+        if (btn) {
+            btn.setAttribute('aria-haspopup', 'dialog');
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                openModal();
+            });
+        }
     }
 
     if (document.readyState === 'loading') {
