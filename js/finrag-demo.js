@@ -110,7 +110,7 @@
             answerBox.textContent =
                 err.name === 'TimeoutError'
                     ? 'Request timed out. The free-tier server may be waking up — try again in a moment.'
-                    : 'Could not reach the FinRAG API. It may be starting up on Render's free tier.';
+                    : 'Could not reach the FinRAG API. It may be starting up on Render free tier.';
         } finally {
             isLoading = false;
             askBtn.disabled = false;
