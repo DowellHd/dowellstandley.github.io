@@ -171,6 +171,16 @@ nav a:hover {
     list-style: none;
 }
 
+/* Invisible bridge that fills the gap so hover isn't lost */
+.nav-dropdown-item::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    height: 10px;
+}
+
 .nav-dropdown-item:hover .nav-dropdown {
     display: flex;
 }
