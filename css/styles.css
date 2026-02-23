@@ -149,6 +149,68 @@ nav a:hover {
     transform: scale(1.12);
 }
 
+/* Nav dropdown (desktop) */
+.nav-dropdown-item {
+    position: relative;
+}
+
+.nav-dropdown {
+    display: none;
+    position: absolute;
+    top: calc(100% + 10px);
+    left: 50%;
+    transform: translateX(-50%);
+    background: #0a192f;
+    border: 1px solid rgba(100, 255, 218, 0.25);
+    border-radius: 8px;
+    min-width: 220px;
+    z-index: 2000;
+    flex-direction: column;
+    padding: 4px 0;
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+    list-style: none;
+}
+
+.nav-dropdown-item:hover .nav-dropdown {
+    display: flex;
+}
+
+.nav-dropdown li {
+    margin: 0 !important;
+}
+
+.nav-dropdown a {
+    display: block !important;
+    padding: 11px 20px !important;
+    font-size: 0.85rem;
+    white-space: nowrap;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+    transform: none !important;
+    transition: background 0.15s, color 0.15s !important;
+}
+
+.nav-dropdown li:last-child a {
+    border-bottom: none;
+}
+
+.nav-dropdown a:hover {
+    background: rgba(100, 255, 218, 0.1);
+    color: var(--secondary-color) !important;
+    transform: none !important;
+}
+
+.nav-chevron {
+    font-size: 0.65em;
+    margin-left: 4px;
+    vertical-align: middle;
+    transition: transform 0.2s;
+    display: inline-block;
+}
+
+.nav-dropdown-item:hover .nav-chevron {
+    transform: rotate(180deg);
+}
+
 /* Mobile styles */
 @media (max-width: 768px) {
     /* Show hamburger on mobile */
@@ -218,6 +280,43 @@ nav a:hover {
     /* Prevent body scroll when menu is open */
     body.menu-open {
         overflow: hidden;
+    }
+
+    /* Dropdown — show inline under Projects on mobile */
+    .nav-dropdown-item {
+        position: static;
+    }
+
+    .nav-dropdown {
+        display: flex !important;
+        position: static;
+        transform: none;
+        box-shadow: none;
+        border: none;
+        border-radius: 0;
+        background: transparent;
+        padding: 0;
+        min-width: 0;
+        width: 100%;
+        flex-direction: column;
+    }
+
+    .nav-dropdown a {
+        padding: 14px 48px !important;
+        font-size: 1rem;
+        border-bottom: 1px solid rgba(100, 255, 218, 0.15) !important;
+        transform: none !important;
+        color: rgba(255, 255, 255, 0.75) !important;
+    }
+
+    .nav-dropdown a:hover,
+    .nav-dropdown a:active {
+        color: var(--secondary-color) !important;
+        background: rgba(100, 255, 218, 0.1) !important;
+    }
+
+    .nav-chevron {
+        display: none;
     }
 }
 

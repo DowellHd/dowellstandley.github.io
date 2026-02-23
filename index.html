@@ -30,7 +30,13 @@
                 <nav id="main-nav" role="navigation">
                     <ul>
                         <li><a href="#home">Home</a></li>
-                        <li><a href="#projects">Projects</a></li>
+                        <li class="nav-dropdown-item">
+                            <a href="#projects" class="nav-dropdown-toggle">Projects <i class="fas fa-chevron-down nav-chevron" aria-hidden="true"></i></a>
+                            <ul class="nav-dropdown" role="menu">
+                                <li role="none"><a href="#projects" role="menuitem">Smart Strategies Builder</a></li>
+                                <li role="none"><a href="#otherProjects" role="menuitem">FinRAG</a></li>
+                            </ul>
+                        </li>
                         <li><a href="#about">About</a></li>
                         <li><a href="#skills">Skills</a></li>
                         <li><a href="#contact">Contact</a></li>
@@ -192,7 +198,7 @@
                                     <a href="https://github.com/DowellHd" target="_blank" class="project-link secondary">
                                         <i class="fab fa-github"></i> View Code
                                     </a>
-                                    <a href="javascript:void(0)" id="finrag-demo-btn" class="project-link primary">
+                                    <a href="javascript:void(0)" id="finrag-demo-btn" class="project-link primary" onclick="openFinRAGDemo(); return false;">
                                         <i class="fas fa-external-link-alt"></i> Live Demo
                                     </a>
                                 </div>

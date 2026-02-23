@@ -383,6 +383,9 @@
         });
     }
 
+    // ── Global escape hatch (belt-and-suspenders for onclick= attribute) ─────
+    window.openFinRAGDemo = openModal;
+
     // ── Wire up "Live Demo" button ────────────────────────────────────────────
     function init() {
         buildModal();
