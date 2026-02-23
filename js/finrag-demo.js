@@ -11,7 +11,7 @@
     'use strict';
 
     // ── Config ───────────────────────────────────────────────────────────────
-    const FINRAG_API_URL = 'https://finrag-api.onrender.com'; // update after deploy
+    const FINRAG_API_URL = 'https://finrag-lbf3.onrender.com'; // deployed
     const PRESET_QUESTIONS = [
         "What was Apple's total revenue in FY2023?",
         "What were Apple's main risk factors?",
