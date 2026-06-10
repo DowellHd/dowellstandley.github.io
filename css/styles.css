@@ -1178,6 +1178,26 @@ section {
     margin-top: 15px;
 }
 
+/* Coming Soon badge */
+.coming-soon-badge {
+    display: inline-block;
+    background-color: var(--secondary-color);
+    color: var(--primary-color);
+    padding: 4px 12px;
+    border-radius: 20px;
+    font-size: 0.75rem;
+    font-weight: bold;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.project-link.disabled {
+    opacity: 0.45;
+    cursor: not-allowed;
+    pointer-events: none;
+}
+
 /* Other Projects Section */
 .other-projects-section {
     margin-top: 60px;
