@@ -1201,6 +1201,7 @@ section {
 /* Other Projects Section */
 .other-projects-section {
     margin-top: 60px;
+    scroll-margin-top: 80px;
 }
 
 .other-projects-section h3 {
@@ -1228,6 +1229,7 @@ section {
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     display: flex;
     flex-direction: column;
+    scroll-margin-top: 80px;
 }
 
 .other-project-card:hover {
