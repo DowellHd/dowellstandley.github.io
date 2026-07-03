@@ -55,9 +55,16 @@
             const data = await res.json();
             badge.textContent = data.doc_count > 0 ? '● Online' : '● Seeding…';
             badge.style.color = '#64ffda';
-        } catch {
-            badge.textContent = '● Offline';
-            badge.style.color = '#ff006e';
+        } catch (err) {
+            // Render free tier spins down when idle; a timeout usually means it's
+            // cold-starting rather than actually down.
+            if (err.name === 'TimeoutError') {
+                badge.textContent = '● Waking up…';
+                badge.style.color = '#ffb700';
+            } else {
+                badge.textContent = '● Offline';
+                badge.style.color = '#ff006e';
+            }
         }
     }
 
