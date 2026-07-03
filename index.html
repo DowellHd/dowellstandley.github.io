@@ -407,12 +407,27 @@
                 }
             });
 
-            // Close menu when clicking on a nav link
-            nav.querySelectorAll('a').forEach(link => {
+            // Close menu when clicking on a nav link (except the "Projects"
+            // dropdown toggle, which just reveals the submenu on mobile —
+            // see handler below)
+            nav.querySelectorAll('a:not(.nav-dropdown-toggle)').forEach(link => {
                 link.addEventListener('click', () => {
                     closeMenu();
                 });
             });
+
+            // On mobile, the project links are already listed inline under
+            // "Projects" (see CSS), so tapping the toggle itself shouldn't
+            // navigate/scroll or close the menu — only tapping a specific
+            // project should.
+            const dropdownToggle = nav.querySelector('.nav-dropdown-toggle');
+            if (dropdownToggle) {
+                dropdownToggle.addEventListener('click', (e) => {
+                    if (nav.classList.contains('show')) {
+                        e.preventDefault();
+                    }
+                });
+            }
 
             // Close menu when clicking outside
             document.addEventListener('click', (e) => {
