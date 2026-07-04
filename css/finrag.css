@@ -444,3 +444,113 @@
         align-items: stretch;
     }
 }
+
+/* ── Install prompt (Android / iOS "Add to Home Screen") ─────────────────── */
+.finrag-install-popup {
+    position: fixed;
+    left: 16px;
+    right: 16px;
+    bottom: 16px;
+    max-width: 420px;
+    margin: 0 auto;
+    z-index: 500;
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    background: #0a192f;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    border-radius: 12px;
+    padding: 16px 40px 16px 16px;
+    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.45);
+    color: #ccd6f6;
+    animation: finrag-install-slide-up 0.35s ease-out;
+}
+
+.finrag-install-popup[hidden] {
+    display: none;
+}
+
+@keyframes finrag-install-slide-up {
+    from { opacity: 0; transform: translateY(16px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+.finrag-install-icon img {
+    display: block;
+    border-radius: 9px;
+    flex-shrink: 0;
+}
+
+.finrag-install-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.finrag-install-title {
+    font-size: 0.9rem;
+    font-weight: bold;
+    color: white;
+    margin-bottom: 4px;
+}
+
+.finrag-install-instructions {
+    font-size: 0.78rem;
+    color: #8892b0;
+    line-height: 1.6;
+}
+
+.finrag-install-instructions .finrag-install-step {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 4px;
+}
+
+.finrag-install-instructions i {
+    color: var(--secondary-color);
+}
+
+.finrag-install-action {
+    align-self: center;
+    background: var(--secondary-color);
+    color: var(--primary-color);
+    border: none;
+    border-radius: 6px;
+    padding: 8px 16px;
+    font-weight: bold;
+    font-family: inherit;
+    font-size: 0.82rem;
+    cursor: pointer;
+    white-space: nowrap;
+    transition: background 0.2s;
+}
+
+.finrag-install-action:hover {
+    background: #4fd8b8;
+}
+
+.finrag-install-close {
+    position: absolute;
+    top: 8px;
+    right: 10px;
+    background: none;
+    border: none;
+    color: #8892b0;
+    font-size: 1.2rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px;
+}
+
+.finrag-install-close:hover {
+    color: white;
+}
+
+@media (max-width: 500px) {
+    .finrag-install-popup {
+        left: 10px;
+        right: 10px;
+        bottom: 10px;
+        padding: 14px 36px 14px 14px;
+    }
+}

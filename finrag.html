@@ -10,9 +10,14 @@
     <link href="https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
-    <link rel="icon" type="image/png" href="/DSFavicon.png">
-    <link rel="apple-touch-icon" href="/DSFavicon.png">
-    <link rel="shortcut icon" href="/DSFavicon.png" type="image/png">
+    <link rel="icon" type="image/png" href="/images/FinRagFavicon.png">
+    <link rel="apple-touch-icon" href="/images/finrag-icons/apple-touch-icon.png">
+    <link rel="shortcut icon" href="/images/FinRagFavicon.png" type="image/png">
+    <link rel="manifest" href="/manifest-finrag.json">
+    <meta name="theme-color" content="#0a192f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="FinRAG">
 </head>
 <body>
     <header>
@@ -178,8 +183,21 @@
         </div>
     </footer>
 
+    <div id="finrag-install-popup" class="finrag-install-popup" role="dialog" aria-modal="false" aria-labelledby="finrag-install-title" hidden>
+        <button id="finrag-install-close" class="finrag-install-close" aria-label="Dismiss install prompt">&times;</button>
+        <div class="finrag-install-icon">
+            <img src="/images/finrag-icons/icon-192.png" alt="" width="40" height="40">
+        </div>
+        <div class="finrag-install-body">
+            <p id="finrag-install-title" class="finrag-install-title">Install FinRAG</p>
+            <p id="finrag-install-instructions" class="finrag-install-instructions">Add this demo to your home screen for one-tap access.</p>
+        </div>
+        <button id="finrag-install-action" class="finrag-install-action">Install</button>
+    </div>
+
     <script src="js/script.js"></script>
     <script src="js/finrag-page.js"></script>
+    <script src="js/finrag-install.js"></script>
     <script>
         // Mobile menu toggle
         (function() {

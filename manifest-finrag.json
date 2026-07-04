@@ -1,0 +1,25 @@
+{
+    "name": "FinRAG — Finance-Domain RAG System",
+    "short_name": "FinRAG",
+    "description": "Query SEC filings and earnings transcripts with grounded, source-cited answers.",
+    "start_url": "/finrag.html",
+    "scope": "/finrag.html",
+    "display": "standalone",
+    "orientation": "portrait",
+    "background_color": "#0a192f",
+    "theme_color": "#0a192f",
+    "icons": [
+        {
+            "src": "/images/finrag-icons/icon-192.png",
+            "sizes": "192x192",
+            "type": "image/png",
+            "purpose": "any"
+        },
+        {
+            "src": "/images/finrag-icons/icon-512.png",
+            "sizes": "512x512",
+            "type": "image/png",
+            "purpose": "any"
+        }
+    ]
+}
