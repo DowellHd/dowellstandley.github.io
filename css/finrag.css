@@ -282,13 +282,18 @@
     cursor: not-allowed;
 }
 
-#finrag-input-row {
+.finrag-input-row {
     display: flex;
     gap: 10px;
     margin-bottom: 22px;
 }
 
-#finrag-input {
+.finrag-input-row[hidden] {
+    display: none;
+}
+
+#finrag-input,
+#finrag-upload-question {
     flex: 1;
     background: rgba(255, 255, 255, 0.06);
     border: 1px solid rgba(100, 255, 218, 0.3);
@@ -301,15 +306,18 @@
     transition: border-color 0.2s;
 }
 
-#finrag-input:focus {
+#finrag-input:focus,
+#finrag-upload-question:focus {
     border-color: var(--secondary-color);
 }
 
-#finrag-input::placeholder {
+#finrag-input::placeholder,
+#finrag-upload-question::placeholder {
     color: #4a5568;
 }
 
-#finrag-ask-btn {
+#finrag-ask-btn,
+#finrag-upload-ask-btn {
     background: var(--secondary-color);
     color: var(--primary-color);
     border: none;
@@ -323,17 +331,20 @@
     white-space: nowrap;
 }
 
-#finrag-ask-btn:hover:not(:disabled) {
+#finrag-ask-btn:hover:not(:disabled),
+#finrag-upload-ask-btn:hover:not(:disabled) {
     background: #4fd8b8;
 }
 
-#finrag-ask-btn:disabled {
+#finrag-ask-btn:disabled,
+#finrag-upload-ask-btn:disabled {
     opacity: 0.5;
     cursor: not-allowed;
 }
 
 /* Thinking indicator */
-#finrag-spinner {
+#finrag-spinner,
+#finrag-upload-spinner {
     display: none;
     align-items: center;
     gap: 10px;
@@ -342,12 +353,14 @@
     color: var(--secondary-color);
 }
 
-#finrag-spinner .finrag-dots {
+#finrag-spinner .finrag-dots,
+#finrag-upload-spinner .finrag-dots {
     display: flex;
     gap: 4px;
 }
 
-#finrag-spinner .finrag-dots span {
+#finrag-spinner .finrag-dots span,
+#finrag-upload-spinner .finrag-dots span {
     width: 6px;
     height: 6px;
     border-radius: 50%;
@@ -355,15 +368,18 @@
     animation: finrag-pulse 1.2s infinite ease-in-out;
 }
 
-#finrag-spinner .finrag-dots span:nth-child(2) { animation-delay: 0.15s; }
-#finrag-spinner .finrag-dots span:nth-child(3) { animation-delay: 0.3s; }
+#finrag-spinner .finrag-dots span:nth-child(2),
+#finrag-upload-spinner .finrag-dots span:nth-child(2) { animation-delay: 0.15s; }
+#finrag-spinner .finrag-dots span:nth-child(3),
+#finrag-upload-spinner .finrag-dots span:nth-child(3) { animation-delay: 0.3s; }
 
 @keyframes finrag-pulse {
     0%, 80%, 100% { opacity: 0.25; transform: scale(0.85); }
     40% { opacity: 1; transform: scale(1.1); }
 }
 
-#finrag-answer-label {
+#finrag-answer-label,
+#finrag-upload-answer-label {
     font-size: 0.76rem;
     color: #8892b0;
     text-transform: uppercase;
@@ -371,7 +387,8 @@
     margin-bottom: 8px;
 }
 
-#finrag-answer-box {
+#finrag-answer-box,
+#finrag-upload-answer-box {
     background: rgba(255, 255, 255, 0.04);
     border: 1px solid rgba(100, 255, 218, 0.15);
     border-radius: 6px;
@@ -383,12 +400,14 @@
     white-space: pre-wrap;
 }
 
-#finrag-answer-box.finrag-error {
+#finrag-answer-box.finrag-error,
+#finrag-upload-answer-box.finrag-error {
     border-color: rgba(255, 0, 110, 0.4);
     color: #ffb3ce;
 }
 
-#finrag-sources {
+#finrag-sources,
+#finrag-upload-sources {
     margin-top: 12px;
     display: flex;
     flex-wrap: wrap;
@@ -417,6 +436,108 @@
     font-size: 0.72rem;
     color: #4a5568;
     line-height: 1.5;
+}
+
+/* ── Mode toggle (Sample Data / Upload Your Own) ─────────────────────────── */
+.finrag-mode-toggle {
+    display: flex;
+    gap: 8px;
+    margin-bottom: 20px;
+    border-bottom: 1px solid rgba(100, 255, 218, 0.15);
+    padding-bottom: 16px;
+}
+
+.finrag-mode-btn {
+    background: transparent;
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    color: #8892b0;
+    padding: 8px 16px;
+    border-radius: 20px;
+    font-family: inherit;
+    font-size: 0.8rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.finrag-mode-btn:hover {
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+}
+
+.finrag-mode-btn.active {
+    background: rgba(100, 255, 218, 0.1);
+    border-color: var(--secondary-color);
+    color: var(--secondary-color);
+    font-weight: bold;
+}
+
+/* ── Upload Your Own panel ────────────────────────────────────────────────── */
+.finrag-privacy-disclaimer {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    background: rgba(255, 0, 110, 0.05);
+    border-left: 2px solid rgba(255, 0, 110, 0.4);
+    padding: 10px 12px;
+    margin-bottom: 18px;
+    font-size: 0.75rem;
+    color: #ffb3ce;
+    line-height: 1.6;
+}
+
+.finrag-privacy-disclaimer i {
+    margin-top: 2px;
+    flex-shrink: 0;
+    color: var(--accent-color);
+}
+
+#finrag-upload-dropzone {
+    text-align: center;
+    border: 1px dashed rgba(100, 255, 218, 0.3);
+    border-radius: 8px;
+    padding: 24px 16px;
+    margin-bottom: 16px;
+}
+
+#finrag-upload-btn {
+    background: rgba(100, 255, 218, 0.07);
+    border: 1px solid rgba(100, 255, 218, 0.3);
+    color: var(--secondary-color);
+    padding: 10px 18px;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: background 0.2s, border-color 0.2s;
+}
+
+#finrag-upload-btn:hover:not(:disabled) {
+    background: rgba(100, 255, 218, 0.15);
+    border-color: var(--secondary-color);
+}
+
+#finrag-upload-btn:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+#finrag-upload-filename {
+    margin-top: 10px;
+    font-size: 0.78rem;
+    color: #8892b0;
+}
+
+#finrag-upload-status {
+    font-size: 0.8rem;
+    margin-bottom: 12px;
+}
+
+#finrag-upload-status.finrag-error {
+    color: #ffb3ce;
+}
+
+#finrag-upload-status.finrag-success {
+    color: var(--secondary-color);
 }
 
 /* ── Responsive ───────────────────────────────────────────────────────── */
@@ -450,7 +571,7 @@
 }
 
 @media (max-width: 500px) {
-    #finrag-input-row {
+    .finrag-input-row {
         flex-direction: column;
     }
 

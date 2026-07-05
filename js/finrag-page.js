@@ -1,6 +1,7 @@
 /**
  * FinRAG standalone demo page — inline query interface.
- * Hits the deployed FinRAG API to answer questions about Apple's FY2023 10-K.
+ * Hits the deployed FinRAG API to answer questions about the indexed
+ * financial documents, or an ephemeral document the visitor uploads.
  */
 
 (function () {
@@ -8,10 +9,10 @@
 
     const FINRAG_API_URL = 'https://finrag-lbf3.onrender.com';
     const PRESET_QUESTIONS = [
-        "What was Apple's total revenue in FY2023?",
-        "What were Apple's main risk factors?",
-        "How much cash did Apple have on hand?",
-        "What was Apple's earnings per share?",
+        "What was the total revenue reported?",
+        "What are the main risk factors disclosed?",
+        "How much cash and cash equivalents were on hand?",
+        "What was the reported earnings per share?",
     ];
 
     let isLoading = false;

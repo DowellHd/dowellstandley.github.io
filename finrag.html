@@ -124,7 +124,7 @@
         <section class="finrag-demo" id="finrag-try-it">
             <div class="container">
                 <h3 class="fade-in">Try It Live</h3>
-                <p class="finrag-subtitle fade-in">Ask a question about Apple's FY2023 10-K filing and get a grounded answer from the live pipeline below.</p>
+                <p class="finrag-subtitle fade-in">Ask a question about the indexed financial filings — or upload your own document — and get a grounded, source-cited answer from the live pipeline below.</p>
 
                 <div class="finrag-demo-panel scale-in">
                     <div class="finrag-panel-header">
@@ -134,29 +134,79 @@
 
                     <p class="finrag-coldstart-note">Hosted on Render's free tier — if the server has been idle, the first query can take 20–30s to wake up. Subsequent queries are fast.</p>
 
-                    <div id="finrag-chips" role="group" aria-label="Suggested questions"></div>
-
-                    <div id="finrag-input-row">
-                        <label for="finrag-input" class="sr-only" style="position:absolute;left:-9999px;">Ask a financial question</label>
-                        <input
-                            id="finrag-input"
-                            type="text"
-                            placeholder="Ask a financial question…"
-                            maxlength="500"
-                            autocomplete="off"
-                        />
-                        <button id="finrag-ask-btn" type="button">Ask</button>
+                    <div id="finrag-mode-toggle" class="finrag-mode-toggle" role="tablist" aria-label="Choose data source">
+                        <button type="button" class="finrag-mode-btn active" id="finrag-mode-sample" role="tab" aria-selected="true">Sample Data</button>
+                        <button type="button" class="finrag-mode-btn" id="finrag-mode-upload" role="tab" aria-selected="false">Upload Your Own</button>
                     </div>
 
-                    <div id="finrag-spinner">
-                        <span class="finrag-dots"><span></span><span></span><span></span></span>
-                        Querying pipeline…
+                    <div id="finrag-sample-panel">
+                        <div id="finrag-chips" role="group" aria-label="Suggested questions"></div>
+
+                        <div id="finrag-input-row" class="finrag-input-row">
+                            <label for="finrag-input" class="sr-only" style="position:absolute;left:-9999px;">Ask a financial question</label>
+                            <input
+                                id="finrag-input"
+                                type="text"
+                                placeholder="Ask a financial question…"
+                                maxlength="500"
+                                autocomplete="off"
+                            />
+                            <button id="finrag-ask-btn" type="button">Ask</button>
+                        </div>
+
+                        <div id="finrag-spinner">
+                            <span class="finrag-dots"><span></span><span></span><span></span></span>
+                            Querying pipeline…
+                        </div>
+
+                        <div id="finrag-answer-section">
+                            <p id="finrag-answer-label">Answer</p>
+                            <div id="finrag-answer-box" aria-live="polite">Ask a question above to see a grounded answer from the document.</div>
+                            <div id="finrag-sources"></div>
+                        </div>
                     </div>
 
-                    <div id="finrag-answer-section">
-                        <p id="finrag-answer-label">Answer</p>
-                        <div id="finrag-answer-box" aria-live="polite">Ask a question above to see a grounded answer from the document.</div>
-                        <div id="finrag-sources"></div>
+                    <div id="finrag-upload-panel" hidden>
+                        <p class="finrag-privacy-disclaimer">
+                            <i class="fas fa-triangle-exclamation" aria-hidden="true"></i>
+                            Your document is processed in memory only and automatically discarded after about 30 minutes —
+                            it is never stored permanently or added to the shared corpus. This is a public demo with no login:
+                            please do not upload documents containing SSNs, full account/card numbers, or other highly
+                            sensitive personal information.
+                        </p>
+
+                        <div id="finrag-upload-dropzone">
+                            <input type="file" id="finrag-file-input" accept=".pdf,.txt,.md" hidden />
+                            <button type="button" id="finrag-upload-btn">
+                                <i class="fas fa-file-arrow-up" aria-hidden="true"></i> Choose a document (PDF, TXT, MD — max 5MB)
+                            </button>
+                            <p id="finrag-upload-filename"></p>
+                        </div>
+
+                        <div id="finrag-upload-status"></div>
+
+                        <div id="finrag-upload-input-row" class="finrag-input-row" hidden>
+                            <label for="finrag-upload-question" class="sr-only" style="position:absolute;left:-9999px;">Ask a question about your document</label>
+                            <input
+                                id="finrag-upload-question"
+                                type="text"
+                                placeholder="Ask a question about your document…"
+                                maxlength="500"
+                                autocomplete="off"
+                            />
+                            <button id="finrag-upload-ask-btn" type="button">Ask</button>
+                        </div>
+
+                        <div id="finrag-upload-spinner">
+                            <span class="finrag-dots"><span></span><span></span><span></span></span>
+                            Processing…
+                        </div>
+
+                        <div id="finrag-upload-answer-section" hidden>
+                            <p id="finrag-upload-answer-label">Answer</p>
+                            <div id="finrag-upload-answer-box" aria-live="polite"></div>
+                            <div id="finrag-upload-sources"></div>
+                        </div>
                     </div>
 
                     <p id="finrag-disclaimer">
@@ -197,6 +247,7 @@
 
     <script src="js/script.js"></script>
     <script src="js/finrag-page.js"></script>
+    <script src="js/finrag-upload.js"></script>
     <script src="js/finrag-install.js"></script>
     <script>
         // Mobile menu toggle
