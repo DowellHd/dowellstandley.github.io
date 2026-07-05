@@ -18,6 +18,8 @@
         AMZN: { name: 'Amazon.com, Inc.', sector: 'E-commerce / Cloud' },
         GOOGL: { name: 'Alphabet Inc.', sector: 'Technology' },
         NVDA: { name: 'NVIDIA Corporation', sector: 'Semiconductors' },
+        META: { name: 'Meta Platforms, Inc.', sector: 'Technology' },
+        NFLX: { name: 'Netflix, Inc.', sector: 'Media / Streaming' },
         JPM: { name: 'JPMorgan Chase & Co.', sector: 'Banking' },
         XOM: { name: 'Exxon Mobil Corporation', sector: 'Energy' },
         JNJ: { name: 'Johnson & Johnson', sector: 'Healthcare' },
