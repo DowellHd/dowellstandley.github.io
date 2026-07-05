@@ -8,20 +8,44 @@
     'use strict';
 
     const FINRAG_API_URL = 'https://finrag-lbf3.onrender.com';
-    const PRESET_QUESTIONS = [
+
+    // Known sample-corpus companies, keyed by ticker. Used for display labels;
+    // the actual set offered in the picker is filtered against whatever
+    // GET /companies reports as currently indexed.
+    const COMPANY_META = {
+        AAPL: { name: 'Apple Inc.', sector: 'Technology' },
+        MSFT: { name: 'Microsoft Corporation', sector: 'Technology' },
+        AMZN: { name: 'Amazon.com, Inc.', sector: 'E-commerce / Cloud' },
+        GOOGL: { name: 'Alphabet Inc.', sector: 'Technology' },
+        NVDA: { name: 'NVIDIA Corporation', sector: 'Semiconductors' },
+        JPM: { name: 'JPMorgan Chase & Co.', sector: 'Banking' },
+        XOM: { name: 'Exxon Mobil Corporation', sector: 'Energy' },
+        JNJ: { name: 'Johnson & Johnson', sector: 'Healthcare' },
+        WMT: { name: 'Walmart Inc.', sector: 'Retail' },
+    };
+
+    const GENERIC_QUESTIONS = [
         "What was the total revenue reported?",
         "What are the main risk factors disclosed?",
         "How much cash and cash equivalents were on hand?",
         "What was the reported earnings per share?",
-        "What was Apple's total revenue in FY2023?",
     ];
 
     let isLoading = false;
+    let selectedTicker = '';
+
+    function getPresetQuestions() {
+        const meta = COMPANY_META[selectedTicker];
+        const lastQuestion = meta
+            ? `What was ${meta.name}'s total revenue in FY2023?`
+            : "Compare risk factors across the indexed companies.";
+        return [...GENERIC_QUESTIONS, lastQuestion];
+    }
 
     function renderChips() {
         const wrap = document.getElementById('finrag-chips');
         if (!wrap) return;
-        wrap.innerHTML = PRESET_QUESTIONS.map(
+        wrap.innerHTML = getPresetQuestions().map(
             (q) => `<button class="finrag-chip" type="button">${q}</button>`
         ).join('');
         wrap.querySelectorAll('.finrag-chip').forEach((chip) => {
@@ -31,6 +55,35 @@
                 submitQuery(chip.textContent);
             });
         });
+    }
+
+    async function loadCompanies() {
+        const select = document.getElementById('finrag-company-select');
+        if (!select) return;
+
+        try {
+            const res = await fetch(`${FINRAG_API_URL}/companies`, { signal: AbortSignal.timeout(8000) });
+            if (!res.ok) return;
+            const data = await res.json();
+            const tickers = Array.isArray(data.tickers) ? data.tickers : [];
+            if (tickers.length === 0) return;
+
+            // Keep them in COMPANY_META's declared order when possible, so the
+            // list reads sector-diverse rather than alphabetical.
+            const ordered = Object.keys(COMPANY_META).filter((t) => tickers.includes(t));
+            const extra = tickers.filter((t) => !COMPANY_META[t]);
+
+            const options = ordered.map((ticker) => {
+                const meta = COMPANY_META[ticker];
+                return `<option value="${ticker}">${meta.name} (${ticker})</option>`;
+            });
+            extra.forEach((ticker) => options.push(`<option value="${ticker}">${ticker}</option>`));
+
+            select.innerHTML = '<option value="">All Companies</option>' + options.join('');
+        } catch (err) {
+            // Leave the picker at "All Companies" only — querying still works
+            // unfiltered even if this discovery call fails.
+        }
     }
 
     const HEALTH_RETRY_LIMIT = 6; // ~30s of polling while the free-tier host wakes up
@@ -75,8 +128,10 @@
     function setLoadingState(loading) {
         const spinner = document.getElementById('finrag-spinner');
         const answerSection = document.getElementById('finrag-answer-section');
+        const companySelect = document.getElementById('finrag-company-select');
         if (spinner) spinner.style.display = loading ? 'flex' : 'none';
         if (answerSection) answerSection.style.display = loading ? 'none' : 'block';
+        if (companySelect) companySelect.disabled = loading;
         document.querySelectorAll('.finrag-chip').forEach((chip) => {
             chip.disabled = loading;
         });
@@ -97,10 +152,13 @@
         setLoadingState(true);
 
         try {
+            const payload = { question: question.trim(), top_k: 5 };
+            if (selectedTicker) payload.ticker = selectedTicker;
+
             const res = await fetch(`${FINRAG_API_URL}/query`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ question: question.trim(), top_k: 5 }),
+                body: JSON.stringify(payload),
                 signal: AbortSignal.timeout(30000),
             });
 
@@ -154,6 +212,23 @@
     function init() {
         renderChips();
         checkApiHealth();
+        loadCompanies();
+
+        const companySelect = document.getElementById('finrag-company-select');
+        if (companySelect) {
+            companySelect.addEventListener('change', () => {
+                selectedTicker = companySelect.value;
+                renderChips();
+
+                const answerBox = document.getElementById('finrag-answer-box');
+                const sourcesLine = document.getElementById('finrag-sources');
+                if (answerBox) {
+                    answerBox.textContent = 'Ask a question above to see a grounded answer from the document.';
+                    answerBox.classList.remove('finrag-error');
+                }
+                if (sourcesLine) sourcesLine.innerHTML = '';
+            });
+        }
 
         const askBtn = document.getElementById('finrag-ask-btn');
         const input = document.getElementById('finrag-input');
