@@ -59,16 +59,24 @@
         });
     }
 
-    async function loadCompanies() {
+    const COMPANIES_RETRY_LIMIT = 6; // ~30s of polling while the free-tier host wakes up
+
+    async function loadCompanies(attempt = 0) {
         const select = document.getElementById('finrag-company-select');
         if (!select) return;
 
         try {
             const res = await fetch(`${FINRAG_API_URL}/companies`, { signal: AbortSignal.timeout(8000) });
-            if (!res.ok) return;
+
+            // Same cold-start behavior as /health: a 503 (or a rejected fetch
+            // with no CORS headers) just means the free-tier instance is
+            // still booting, not that the endpoint is broken.
+            if (res.status === 503) throw new Error('waking');
+            if (!res.ok) throw new Error('non-ok');
+
             const data = await res.json();
             const tickers = Array.isArray(data.tickers) ? data.tickers : [];
-            if (tickers.length === 0) return;
+            if (tickers.length === 0) throw new Error('empty');
 
             // Keep them in COMPANY_META's declared order when possible, so the
             // list reads sector-diverse rather than alphabetical.
@@ -83,8 +91,12 @@
 
             select.innerHTML = '<option value="">All Companies</option>' + options.join('');
         } catch (err) {
+            if (attempt < COMPANIES_RETRY_LIMIT) {
+                setTimeout(() => loadCompanies(attempt + 1), 5000);
+                return;
+            }
             // Leave the picker at "All Companies" only — querying still works
-            // unfiltered even if this discovery call fails.
+            // unfiltered even if this discovery call never succeeds.
         }
     }
 
