@@ -13,6 +13,7 @@
         "What are the main risk factors disclosed?",
         "How much cash and cash equivalents were on hand?",
         "What was the reported earnings per share?",
+        "What was Apple's total revenue in FY2023?",
     ];
 
     let isLoading = false;
