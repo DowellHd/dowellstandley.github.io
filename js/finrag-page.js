@@ -237,7 +237,7 @@
                 const answerBox = document.getElementById('finrag-answer-box');
                 const sourcesLine = document.getElementById('finrag-sources');
                 if (answerBox) {
-                    answerBox.textContent = 'Ask a question above to see a grounded answer from the document.';
+                    answerBox.textContent = 'Ask a question above to see a grounded, source-cited answer.';
                     answerBox.classList.remove('finrag-error');
                 }
                 if (sourcesLine) sourcesLine.innerHTML = '';
