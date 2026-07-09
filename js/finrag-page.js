@@ -35,6 +35,7 @@
 
     let isLoading = false;
     let selectedTicker = '';
+    let companiesLoading = true;
 
     function getPresetQuestions() {
         const meta = COMPANY_META[selectedTicker];
@@ -65,6 +66,12 @@
         const select = document.getElementById('finrag-company-select');
         if (!select) return;
 
+        if (attempt === 0) {
+            companiesLoading = true;
+            select.disabled = true;
+            select.innerHTML = '<option value="">Loading companies…</option>';
+        }
+
         try {
             const res = await fetch(`${FINRAG_API_URL}/companies`, { signal: AbortSignal.timeout(8000) });
 
@@ -90,13 +97,18 @@
             extra.forEach((ticker) => options.push(`<option value="${ticker}">${ticker}</option>`));
 
             select.innerHTML = '<option value="">All Companies</option>' + options.join('');
+            companiesLoading = false;
+            select.disabled = false;
         } catch (err) {
             if (attempt < COMPANIES_RETRY_LIMIT) {
                 setTimeout(() => loadCompanies(attempt + 1), 5000);
                 return;
             }
-            // Leave the picker at "All Companies" only — querying still works
-            // unfiltered even if this discovery call never succeeds.
+            // Give up — fall back to "All Companies" only. Querying still
+            // works unfiltered even if this discovery call never succeeds.
+            select.innerHTML = '<option value="">All Companies</option>';
+            companiesLoading = false;
+            select.disabled = false;
         }
     }
 
@@ -145,7 +157,7 @@
         const companySelect = document.getElementById('finrag-company-select');
         if (spinner) spinner.style.display = loading ? 'flex' : 'none';
         if (answerSection) answerSection.style.display = loading ? 'none' : 'block';
-        if (companySelect) companySelect.disabled = loading;
+        if (companySelect) companySelect.disabled = loading || companiesLoading;
         document.querySelectorAll('.finrag-chip').forEach((chip) => {
             chip.disabled = loading;
         });
