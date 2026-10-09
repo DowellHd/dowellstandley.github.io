@@ -34,6 +34,7 @@
                             <a href="#projects" class="nav-dropdown-toggle">Projects <i class="fas fa-chevron-down nav-chevron" aria-hidden="true"></i></a>
                             <ul class="nav-dropdown" role="menu">
                                 <li role="none"><a href="#projects" role="menuitem">Smart Strategies Builder</a></li>
+                                <li role="none"><a href="#aria" role="menuitem">ARIA</a></li>
                                 <li role="none"><a href="#finrag" role="menuitem">FinRAG</a></li>
                                 <li role="none"><a href="#discern" role="menuitem">Discern</a></li>
                             </ul>
@@ -154,6 +155,50 @@
                 <div id="otherProjects" class="other-projects-section">
                     <h3 class="fade-in">Other Projects</h3>
                     <div class="other-projects-grid">
+
+                        <!-- ARIA -->
+                        <div id="aria" class="other-project-card fade-in">
+                            <div class="other-project-media">
+                                <img src="/images/Aria-project-card.jpeg" alt="ARIA — Self-hosted AI agent runtime">
+                            </div>
+                            <div class="other-project-content">
+                                <h3>ARIA</h3>
+                                <p class="project-tagline">Self-hosted AI agent runtime</p>
+                                <div class="project-description">
+                                    <p>A personal AI agent that runs entirely on my own hardware. FastAPI server with an agentic tool-use loop, local inference on an RTX 5060 Ti via Ollama, and a provider abstraction that swaps between local and hosted models through config alone. Tools run inside a bubblewrap sandbox with no network and no access outside the workspace. Context compaction keeps long conversations inside a 16k window without losing the transcript. 198 tests, strict mypy, no model-specific workarounds in the agent layer.</p>
+                                </div>
+                                <div class="tech-stack-section">
+                                    <h4>Tech Stack</h4>
+                                    <div class="tech-category">
+                                        <span class="tech-tag">Python</span>
+                                        <span class="tech-tag">FastAPI</span>
+                                        <span class="tech-tag">Ollama</span>
+                                        <span class="tech-tag">SQLite</span>
+                                        <span class="tech-tag">bubblewrap</span>
+                                        <span class="tech-tag">SSE</span>
+                                        <span class="tech-tag">pytest</span>
+                                    </div>
+                                </div>
+                                <details class="project-details">
+                                    <summary>Highlights</summary>
+                                    <div class="details-content">
+                                        <ul>
+                                            <li>Provider-neutral agent loop: Ollama and Anthropic tool-call formats are translated inside each provider, with zero model-specific branching above that layer</li>
+                                            <li><code>run_python</code> executes inside a bubblewrap mount namespace with <code>--unshare-net</code>, no <code>$HOME</code>, and only the workspace bound, proven by an adversarial escape suite, not asserted</li>
+                                            <li>Sandbox probe runs at startup and refuses to execute rather than silently falling back to unconfined</li>
+                                            <li>Context compaction is a projection, not a deletion: the canonical SQLite transcript is never mutated, only the per-request view sent to the model</li>
+                                            <li>Per-session turn guard closes a load-run-append race that would otherwise interleave two concurrent requests into one incoherent transcript</li>
+                                            <li>198 tests, strict mypy, zero warnings</li>
+                                        </ul>
+                                    </div>
+                                </details>
+                                <div class="project-actions">
+                                    <a href="https://github.com/DowellHd/aria" target="_blank" rel="noopener noreferrer" class="project-link secondary">
+                                        <i class="fab fa-github"></i> View Code
+                                    </a>
+                                </div>
+                            </div>
+                        </div>
 
                         <!-- FinRAG -->
                         <div id="finrag" class="other-project-card fade-in">
