@@ -1230,6 +1230,10 @@ section {
     gap: 28px;
 }
 
+.other-projects-section .other-projects-grid {
+    align-items: start;
+}
+
 .other-project-card {
     background: white;
     border-radius: 12px;
