@@ -1040,6 +1040,15 @@ section {
     color: var(--secondary-color);
 }
 
+.details-content code {
+    font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+    font-size: 0.85em;
+    color: var(--primary-color);
+    background-color: var(--background-color);
+    padding: 1px 6px;
+    border-radius: 4px;
+}
+
 .details-content h5 {
     font-size: 0.95rem;
     color: var(--primary-color);
