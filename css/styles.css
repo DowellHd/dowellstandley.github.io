@@ -1243,9 +1243,14 @@ section {
     background-color: var(--primary-color);
 }
 
+.other-project-media {
+    aspect-ratio: 3 / 2;
+}
+
 .other-project-media img {
     width: 100%;
-    height: auto;
+    height: 100%;
+    object-fit: cover;
     display: block;
 }
 
